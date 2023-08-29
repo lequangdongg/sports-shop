@@ -3,7 +3,6 @@ import Carousel from "@/app/components/Carousel";
 import Banner from "@/app/components/Banner";
 import ProductBanner from "@/app/components/ProductBanner";
 import DataGrid from "@/app/components/DataGrid";
-import Footer from "@/app/components/Footer";
 
 const HomePage = () => {
   const products = [
@@ -97,7 +96,6 @@ const HomePage = () => {
       <DataGrid products={products} title="Categories" />
 
       <DataGrid products={products} title="Products" />
-      <Footer />
     </div>
   );
 };
