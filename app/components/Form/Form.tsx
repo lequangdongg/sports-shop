@@ -30,7 +30,7 @@ export default function Example() {
   } = useForm();
   const [images, setImages] = useState<Record<string, File>>({});
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     console.log(data);
   };
 
