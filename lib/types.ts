@@ -1,14 +1,15 @@
 import type {
   FieldErrors,
   FieldPath,
+  FieldValues,
   RegisterOptions,
   UseFormRegister,
 } from 'react-hook-form';
 
-export type FormFieldProps<T extends FormProducts> = {
+export type FormFieldProps<T extends FieldValues = FormProducts> = {
   label?: string;
   type?: string;
-  name: string;
+  name: keyof T;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   rules?: RegisterOptions<T, FieldPath<T>>;
