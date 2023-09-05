@@ -123,7 +123,7 @@ const Carousel = () => {
   ];
   return (
     <div className="relative mx-auto px-4 py-4 w-full lg:px-8">
-      <h2 className="text-2xl font-bold text-gray-900">Other Products</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Các sản phẩm thể thao nổi bật</h2>
       <Swiper
         slidesPerView={1}
         spaceBetween={10}
@@ -155,7 +155,7 @@ const Carousel = () => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
-            <Link href="products/bb" className="group">
+            <Link href="/products/bb" className="group">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <Image
                   src={product.imageSrc}
