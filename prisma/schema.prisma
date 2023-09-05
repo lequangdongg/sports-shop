@@ -13,16 +13,13 @@ model Categories {
   title             String
   slug              String   @unique
   image             String
-  imageDetails      String
-  price             BigInt
+  price             Int
   description       String
   descriptionDetail String
-  highlights        String[] @default([])
+  highlights        String? 
   isPublish         Boolean  @default(false)
-  colors            String[] @default([])
   sizes             String[] @default([])
-  discount          Int      @default(0)
-  category          String
+  category          String[] @default([])
   createdAt         DateTime @default(now()) @map(name: "created_at")
   updatedAt         DateTime @updatedAt @map(name: "updated_at")
 

@@ -7,6 +7,7 @@ const TextArea: React.FC<FormFieldProps> = ({
   name,
   register,
   errors,
+  rules = {},
 }) => {
   return (
     <div>
@@ -17,7 +18,9 @@ const TextArea: React.FC<FormFieldProps> = ({
         id="message"
         rows={4}
         className={classField(errors, name)}
-        {...register(name, { required: true })}
+        {...register(name, {
+          ...rules,
+        })}
       />
     </div>
   );

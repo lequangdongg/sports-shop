@@ -21,7 +21,6 @@ const Input: React.FC<FormFieldProps> = ({
         placeholder="Vui lòng nhập"
         className={classField(errors, name)}
         {...register(name, {
-          required: true,
           ...rules,
         })}
       />

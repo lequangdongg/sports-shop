@@ -1,5 +1,5 @@
 import google from '@/lib/google-api';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { Readable } from 'node:stream';
 
 export async function GET(request: Request) {
@@ -35,4 +35,15 @@ export async function POST(request: Request, response: Response) {
     },
   });
   return NextResponse.json(result.data);
+}
+
+export async function DELETE(request: NextRequest) {
+  const drive = google.drive({
+    version: 'v3',
+  });
+
+  const fileId = request.nextUrl.searchParams.get('fileId') as string;
+  await drive.files.delete({ fileId });
+
+  return NextResponse.json({});
 }
