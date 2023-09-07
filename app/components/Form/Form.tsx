@@ -88,12 +88,9 @@ export default function Example() {
         slug: '',
       });
       setImages({});
+      initialize();
     } catch (error) {
-      if (imageId.current) {
-        axios.delete('/api/google', {
-          params: { fileId: imageId.current },
-        });
-      }
+      //
     } finally {
       setLoading(false);
       imageId.current = '';
@@ -101,18 +98,14 @@ export default function Example() {
   };
 
   const onUpload = async (file: File): Promise<void> => {
+    const formData = new FormData();
+    formData.append(images['mainImage'].name, images['mainImage']);
     try {
-      const response = await axios.post(
-        'api/google',
-        {
-          file,
+      const response = await axios.post('api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      );
+      });
       imageId.current = response.data.id;
     } catch (error) {
       //
@@ -126,7 +119,7 @@ export default function Example() {
   const onDelete = async (data: FormProducts) => {
     setLoadingContent(true);
     try {
-      axios.delete('api/google', {
+      await axios.delete('api/upload', {
         params: {
           fileId: data.image,
         },
@@ -150,15 +143,17 @@ export default function Example() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="relative mt-10 mb-10 block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        {loadingContent && (
-          <div className="absolute flex items-center justify-center w-full h-full top-0 z-50 left-0 bg-transparent">
-            <Spinner />
-          </div>
-        )}
-        <ListCategory data={data.products} onDelete={onDelete} />
-        <Pagination pagination={data.pagination} />
-      </div>
+      {!!data.products.length && (
+        <div className="relative mt-10 mb-10 block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          {loadingContent && (
+            <div className="absolute flex items-center justify-center w-full h-full top-0 z-50 left-0 bg-transparent">
+              <Spinner />
+            </div>
+          )}
+          <ListCategory data={data.products} onDelete={onDelete} />
+          <Pagination pagination={data.pagination} />
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">
