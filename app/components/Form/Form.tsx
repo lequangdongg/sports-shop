@@ -98,14 +98,18 @@ export default function Example() {
   };
 
   const onUpload = async (file: File): Promise<void> => {
-    const formData = new FormData();
-    formData.append(images['mainImage'].name, images['mainImage']);
     try {
-      const response = await axios.post('api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      const response = await axios.post(
+        'api/google',
+        {
+          file,
         },
-      });
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
       imageId.current = response.data.id;
     } catch (error) {
       //
@@ -119,7 +123,7 @@ export default function Example() {
   const onDelete = async (data: FormProducts) => {
     setLoadingContent(true);
     try {
-      await axios.delete('api/upload', {
+      axios.delete('api/google', {
         params: {
           fileId: data.image,
         },
