@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ProductBanner = () => {
   return (
@@ -7,11 +7,12 @@ const ProductBanner = () => {
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
           <div className="sm:max-w-lg">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Summer styles are finally here
+              Các trang phụ thể thao dành cho cả nam và nữ
             </h1>
             <p className="mt-4 text-xl text-gray-500">
-              This year, our new summer collection will shelter you from the
-              harsh elements of a world that does not care if you live or die.
+              Đến với shop các hàng hoá và phụ kiện liên quan đến thể
+              thao(sports) hiện đang nổi bật trên thị trường đều có đủ để phục
+              vụ tất cả mọi người và mọi lứa tuổi với giá cả hợp lý.
             </p>
           </div>
           <div>
