@@ -5,9 +5,7 @@ import ProductBanner from '@/app/components/ProductBanner';
 import DataGrid from '@/app/components/DataGrid';
 import prisma from '@/lib/prisma';
 import Footer from './components/Footer';
-import Facebook from './components/Facebook';
-import Tiktok from './components/Tiktok';
-
+import products from '@/utils/data.json';
 const getProducts = async () => {
   const users = await prisma.categories.findMany({
     where: {
@@ -115,13 +113,6 @@ const HomePage = async () => {
 
       <DataGrid products={products} title="Dụng cụ thể thao" />
       <Footer />
-
-      <div data-dial-init className="fixed z-50 right-6 bottom-6 group">
-        <a href="https://www.facebook.com/jackphan100895" target='_blank'>
-          <Facebook />
-        </a>
-        <Tiktok />
-      </div>
     </div>
   );
 };

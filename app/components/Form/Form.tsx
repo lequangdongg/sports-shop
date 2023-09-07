@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+'use client';
+import { useEffect, useRef, useState } from 'react';
 import TextArea from '../TextArea';
 import Input from '../Input';
 import Select from 'react-select';
@@ -8,8 +9,13 @@ import { Controller, useForm } from 'react-hook-form';
 import Attachment from '../Attachment';
 import { omit } from 'lodash';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { sizeProduct, typeProduct } from '@/utils/constants';
-import { FormProducts } from '@/lib/types';
+import { FormProducts, PaginationType } from '@/lib/types';
+import { useRouter } from 'next/navigation';
+import ListCategory from '../ListCategory';
+import Pagination from '../Pagination';
+import Spinner from '../Spinner';
 
 const uploads = [
   {
@@ -26,16 +32,45 @@ export default function Example() {
     control,
     formState: { errors },
   } = useForm<FormProducts>();
+  const router = useRouter();
   const [images, setImages] = useState<Record<string, File>>({});
+  const [data, setData] = useState<{
+    products: FormProducts[];
+    pagination: PaginationType;
+  }>({
+    products: [],
+    pagination: {
+      currentPage: 1,
+      from: 1,
+      lastPage: 0,
+      perPage: 10,
+      to: 10,
+      total: 0,
+    },
+  });
   const [loading, setLoading] = useState(false);
+  const [loadingContent, setLoadingContent] = useState(false);
   const imageId = useRef<string>('');
+
+  const initialize = async (): Promise<void> => {
+    try {
+      const res = await axios.get('api/product');
+      setData(res.data);
+    } catch (error) {
+      //
+    }
+  };
+
+  useEffect(() => {
+    initialize();
+  }, []);
 
   const onSubmit = async (data: FormProducts) => {
     setLoading(true);
     try {
       await onUpload(images['mainImage']);
       await axios.post(
-        'api/category',
+        'api/product',
         { ...data, price: +data.price, image: imageId.current },
         {
           headers: {
@@ -44,7 +79,15 @@ export default function Example() {
           },
         },
       );
-      reset();
+      toast.success('Thêm mới sản phẩm thành công', {
+        duration: 4000,
+        position: 'top-center',
+      });
+      reset({
+        title: '',
+        slug: '',
+      });
+      setImages({});
     } catch (error) {
       if (imageId.current) {
         axios.delete('/api/google', {
@@ -80,12 +123,47 @@ export default function Example() {
     setImages(omit(images, name));
   };
 
+  const onDelete = async (data: FormProducts) => {
+    setLoadingContent(true);
+    try {
+      axios.delete('api/google', {
+        params: {
+          fileId: data.image,
+        },
+      });
+      await axios.delete('api/product', {
+        params: {
+          id: data.id,
+        },
+      });
+      await initialize();
+      toast.success('Xoá sản phẩm thành công', {
+        duration: 4000,
+        position: 'top-center',
+      });
+    } catch (error) {
+      //
+    } finally {
+      setLoadingContent(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mt-10 mb-10 block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        {loadingContent && (
+          <div className="absolute flex items-center justify-center w-full h-full top-0 z-50 left-0 bg-transparent">
+            <Spinner />
+          </div>
+        )}
+        <ListCategory data={data.products} onDelete={onDelete} />
+        <Pagination pagination={data.pagination} />
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="col-span-full">
                 <Input
                   register={register}
@@ -100,7 +178,10 @@ export default function Example() {
                   register={register}
                   label="Đường dẫn sản phẩm"
                   name="slug"
-                  rules={{ pattern: /^[a-z]+(-[a-z]+)*$/, required: true }}
+                  rules={{
+                    pattern: /^[a-zA-Z0-9-]+$/,
+                    required: true,
+                  }}
                   errors={errors}
                 />
               </div>
@@ -132,7 +213,7 @@ export default function Example() {
                   name="price"
                   type="number"
                   errors={errors}
-                  rules={{ min: 0, valueAsNumber: true }}
+                  rules={{ min: 0, valueAsNumber: true, required: true }}
                 />
               </div>
               <div className="col-span-full">
@@ -172,7 +253,9 @@ export default function Example() {
                   render={({ field: { onChange, value } }) => (
                     <Select
                       isMulti
+                      id="size"
                       placeholder="Chọn size"
+                      isSearchable={false}
                       closeMenuOnSelect={false}
                       value={sizeProduct.find(
                         (size) => size.value === (value as unknown as string),
@@ -197,7 +280,9 @@ export default function Example() {
                   control={control}
                   render={({ field: { onChange, value } }) => (
                     <Select
+                      id="category"
                       isMulti
+                      isSearchable={false}
                       placeholder="Chọn loại"
                       closeMenuOnSelect={false}
                       value={typeProduct.find(
@@ -213,12 +298,20 @@ export default function Example() {
                 />
               </div>
               <div className="col-span-full">
-                <Checkbox
-                  register={register}
-                  label="Công khai sản phẩm"
-                  name="isPublish"
-                  errors={errors}
-                />
+                <div className="flex gap-3">
+                  <Checkbox
+                    register={register}
+                    label="Công khai sản phẩm"
+                    name="isPublish"
+                    errors={errors}
+                  />
+                  <Checkbox
+                    register={register}
+                    label="Sản phẩm nổi bật"
+                    name="isPopular"
+                    errors={errors}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -228,8 +321,9 @@ export default function Example() {
           <button
             type="button"
             className="py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center"
+            onClick={() => router.push('/')}
           >
-            Cancel
+            Quay lại trang chủ
           </button>
           <button
             type="submit"
@@ -255,10 +349,11 @@ export default function Example() {
                 />
               </svg>
             )}
-            Save
+            Lưu sản phẩm
           </button>
         </div>
       </form>
+      <Toaster />
     </div>
   );
 }

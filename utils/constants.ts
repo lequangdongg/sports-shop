@@ -1,6 +1,6 @@
 export enum TypeProductEnum {
-  SportClothes = 'SportClothes',
-  SportsAccessories = 'SportsAccessories',
+  SportClothes = 'Quần áo thể thao',
+  SportsAccessories = 'Phụ kiện thể thao',
 }
 
 export const sizeProduct = [
