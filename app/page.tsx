@@ -5,7 +5,7 @@ import ProductBanner from '@/app/components/ProductBanner';
 import DataGrid from '@/app/components/DataGrid';
 import prisma from '@/lib/prisma';
 import Footer from './components/Footer';
-import products from '@/utils/data.json';
+
 const getProducts = async () => {
   const users = await prisma.categories.findMany({
     where: {

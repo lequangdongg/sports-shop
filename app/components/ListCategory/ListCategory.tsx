@@ -13,9 +13,9 @@ const ListCategory: React.FC<{
         <li className="pb-3 sm:pb-4" key={item.id}>
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
-              <Image
+              <img
                 className="w-30 h-30"
-                src={`/${item.image}`}
+                src={`https://lh3.googleusercontent.com/d/${item.image}`}
                 alt="Neil image"
                 width={100}
                 height={100}
@@ -25,9 +25,11 @@ const ListCategory: React.FC<{
               <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                 {item.title}
               </p>
-              {item.category && <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                {item.category.join(', ')}
-              </p>}
+              {item.category && (
+                <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                  {item.category.join(', ')}
+                </p>
+              )}
             </div>
             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
               {formatCurrency(item.price)}
