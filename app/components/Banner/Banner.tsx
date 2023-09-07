@@ -1,6 +1,17 @@
 import Image from 'next/image';
 import React from 'react';
 
+const mediaSocials = [
+  {
+    name: 'Fampage: ',
+    link: 'https://www.facebook.com/jackphan100895',
+  },
+  {
+    name: 'Tiktok: ',
+    link: 'https://www.tiktok.com/@ytbhoangminhcoffee',
+  },
+];
+
 const Banner = () => {
   return (
     <section className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -39,11 +50,25 @@ const Banner = () => {
               >
                 <circle cx={1} cy={1} r={1} />
               </svg>
-              <div className="text-blue-600"> 
+              <div className="text-blue-600">
                 <a href="tel:+84933857472">0933857472</a>
               </div>
             </div>
           </figcaption>
+          <div className="flex flex-col justify-center items-center gap-1">
+            {mediaSocials.map((social) => (
+              <div key={social.name}>
+                <span>{social.name}</span>
+                <a
+                  href={social.link}
+                  target="_blank"
+                  className="font-medium text-blue-600 dark:text-blue-500 underline"
+                >
+                  {social.link}
+                </a>
+              </div>
+            ))}
+          </div>
         </figure>
       </div>
     </section>

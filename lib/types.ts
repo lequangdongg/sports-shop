@@ -16,6 +16,7 @@ export type FormFieldProps<T extends FieldValues = FormProducts> = {
 };
 
 export type FormProducts = {
+  id?: string;
   title: string;
   slug: string;
   image: string;
@@ -26,4 +27,14 @@ export type FormProducts = {
   sizes: string[];
   category: string[];
   isPublish: boolean;
+  isPopular: boolean;
+};
+
+export type PaginationType = {
+  total: number;
+  perPage: number;
+  currentPage: number;
+  lastPage: number;
+  from: number;
+  to: number;
 };
