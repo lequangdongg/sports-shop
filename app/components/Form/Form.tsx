@@ -123,11 +123,11 @@ export default function Example() {
   const onDelete = async (data: FormProducts) => {
     setLoadingContent(true);
     try {
-      axios.delete('api/google', {
-        params: {
-          fileId: data.image,
-        },
-      });
+      // axios.delete('api/google', {
+      //   params: {
+      //     fileId: data.image,
+      //   },
+      // });
       await axios.delete('api/product', {
         params: {
           id: data.id,
