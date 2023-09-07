@@ -212,7 +212,7 @@ export default function Form() {
               <div className="col-span-full">
                 <Input
                   register={register}
-                  label="Đường dẫn sản phẩm"
+                  label="Đường dẫn sản phẩm lưu ý không dấu(ví dụ: https://sport.com/ao-dep-nè thì đừng dẫn là ao-dep-ne)"
                   name="slug"
                   rules={{
                     pattern: /^[a-zA-Z0-9-]+$/,
