@@ -7,8 +7,6 @@ import {
 } from '@/app/helpers/pagination';
 import { FormProducts } from '@/lib/types';
 
-const dataFilePath = path.join(process.cwd(), 'utils/data.json');
-
 export async function POST(request: NextRequest) {
   const req = await request.json();
   const res = {
@@ -18,12 +16,11 @@ export async function POST(request: NextRequest) {
     updatedAt: new Date(),
   };
   const jsonDirectory = path.join(process.cwd(), 'json');
-  let products = JSON.parse(await fsPromises.readFile(
-    jsonDirectory + '/data.json',
-    'utf8',
-  )) as unknown as { data: FormProducts[] };
-  fsPromises.writeFile(
-    dataFilePath,
+  let products = JSON.parse(
+    await fsPromises.readFile(jsonDirectory + '/data.json', 'utf8'),
+  ) as unknown as { data: FormProducts[] };
+  await fsPromises.writeFile(
+    `${jsonDirectory}/data.json`,
     JSON.stringify({ data: [res, ...products.data] }),
   );
   return NextResponse.json(res);
@@ -56,14 +53,13 @@ export async function GET(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   const id = request.nextUrl.searchParams.get('id') as string;
   const jsonDirectory = path.join(process.cwd(), 'json');
-  let products = JSON.parse(await fsPromises.readFile(
-    jsonDirectory + '/data.json',
-    'utf8',
-  )) as unknown as { data: FormProducts[] };
+  let products = JSON.parse(
+    await fsPromises.readFile(jsonDirectory + '/data.json', 'utf8'),
+  ) as unknown as { data: FormProducts[] };
 
   const data = (products.data as unknown as FormProducts[]).filter(
     (product) => product.id !== id,
   );
-  fsPromises.writeFile(dataFilePath, JSON.stringify({ data }));
+  await fsPromises.writeFile(`${jsonDirectory}/data.json`, JSON.stringify({ data }));
   return NextResponse.json({});
 }
