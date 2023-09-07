@@ -8,22 +8,26 @@ import {
 import { FormProducts } from '@/lib/types';
 
 export async function POST(request: NextRequest) {
-  const req = await request.json();
-  const res = {
-    id: crypto.randomUUID(),
-    ...req,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-  const jsonDirectory = path.join(process.cwd(), 'json');
-  let products = JSON.parse(
-    await fsPromises.readFile(jsonDirectory + '/data.json', 'utf8'),
-  ) as unknown as { data: FormProducts[] };
-  await fsPromises.writeFile(
-    `${jsonDirectory}/data.json`,
-    JSON.stringify({ data: [res, ...products.data] }),
-  );
-  return NextResponse.json(res);
+  try {
+    const req = await request.json();
+    const res = {
+      id: crypto.randomUUID(),
+      ...req,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const jsonDirectory = path.join(process.cwd(), 'json');
+    let products = JSON.parse(
+      await fsPromises.readFile(jsonDirectory + '/data.json', 'utf8'),
+    ) as unknown as { data: FormProducts[] };
+    await fsPromises.writeFile(
+      `${jsonDirectory}/data.json`,
+      JSON.stringify({ data: [res, ...products.data] }),
+    );
+    return NextResponse.json(res);
+  } catch (error) {
+    return NextResponse.json(error);
+  }
 }
 
 export async function GET(request: NextRequest) {
@@ -60,6 +64,9 @@ export async function DELETE(request: NextRequest) {
   const data = (products.data as unknown as FormProducts[]).filter(
     (product) => product.id !== id,
   );
-  await fsPromises.writeFile(`${jsonDirectory}/data.json`, JSON.stringify({ data }));
+  await fsPromises.writeFile(
+    `${jsonDirectory}/data.json`,
+    JSON.stringify({ data }),
+  );
   return NextResponse.json({});
 }

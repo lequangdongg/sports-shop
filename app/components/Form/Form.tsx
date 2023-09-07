@@ -90,7 +90,7 @@ export default function Example() {
       setImages({});
       initialize();
     } catch (error) {
-      //
+      toast((error as any).message);
     } finally {
       setLoading(false);
       imageId.current = '';
@@ -112,7 +112,7 @@ export default function Example() {
       );
       imageId.current = response.data.id;
     } catch (error) {
-      //
+      toast((error as any).message);
     }
   };
 
@@ -139,7 +139,7 @@ export default function Example() {
         position: 'top-center',
       });
     } catch (error) {
-      //
+      toast((error as any).message);
     } finally {
       setLoadingContent(false);
     }
