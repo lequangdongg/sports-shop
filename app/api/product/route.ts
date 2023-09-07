@@ -44,10 +44,9 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const id = request.nextUrl.searchParams.get('id') as string;
-  const data = dataJson.data.filter((product) => product.id !== id);
-  fsPromises.writeFile(
-    dataFilePath,
-    JSON.stringify({ data }),
+  const data = (dataJson.data as FormProducts[]).filter(
+    (product) => product.id !== id,
   );
+  fsPromises.writeFile(dataFilePath, JSON.stringify({ data }));
   return NextResponse.json({});
 }
