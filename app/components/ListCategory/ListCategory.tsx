@@ -10,12 +10,12 @@ const ListCategory: React.FC<{
   return (
     <ul className="max-w divide-y divide-gray-200 dark:divide-gray-700">
       {data.map((item) => (
-        <li className="pb-3 sm:pb-4" key={item.description}>
+        <li className="pb-3 sm:pb-4" key={item.id}>
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
-              <img
+              <Image
                 className="w-30 h-30"
-                src={`https://lh3.googleusercontent.com/d/${item.image}`}
+                src={`/${item.image}`}
                 alt="Neil image"
                 width={100}
                 height={100}

@@ -61,6 +61,7 @@ const Banner = () => {
                 <span>{social.name}</span>
                 <a
                   href={social.link}
+                  rel="noreferrer"
                   target="_blank"
                   className="font-medium text-blue-600 dark:text-blue-500 underline"
                 >
