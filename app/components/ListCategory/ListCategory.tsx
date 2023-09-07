@@ -8,8 +8,8 @@ const ListCategory: React.FC<{
   onDelete: (data: FormProducts) => void;
 }> = ({ data, onDelete }) => {
   return (
-    <ul className="max-w divide-y divide-gray-200 dark:divide-gray-700">
-      {data.map((item) => (
+    <ul className="max-w max-h-96 overflow-auto divide-y divide-gray-200 dark:divide-gray-700">
+      {data.map((item, index) => (
         <li className="pb-3 sm:pb-4" key={item.id}>
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
@@ -27,7 +27,7 @@ const ListCategory: React.FC<{
               </p>
               {item.category && (
                 <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                  {item.category.join(', ')}
+                  {item.category}
                 </p>
               )}
             </div>

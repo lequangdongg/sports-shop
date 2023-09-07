@@ -16,6 +16,10 @@ import { useRouter } from 'next/navigation';
 import ListCategory from '../ListCategory';
 import Pagination from '../Pagination';
 import Spinner from '../Spinner';
+import {
+  paginationCalculation,
+  paginationGetItem,
+} from '@/app/helpers/pagination';
 
 const uploads = [
   {
@@ -24,7 +28,7 @@ const uploads = [
   },
 ];
 
-export default function Example() {
+export default function Form() {
   const {
     handleSubmit,
     register,
@@ -52,12 +56,25 @@ export default function Example() {
   const [loadingContent, setLoadingContent] = useState(false);
   const imageId = useRef<string>('');
 
-  const initialize = async (): Promise<void> => {
+  const initialize = async (page = 1): Promise<void> => {
     try {
-      const res = await axios.get('api/product');
-      setData(res.data);
+      setLoadingContent(true);
+      const res = await axios.get(process.env.NEXT_PUBLIC_SHEET_API as string, {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
+        },
+      });
+      const products = paginationGetItem(res.data, 10, page);
+      const pagination = paginationCalculation(res.data.length, page);
+      const result = {
+        products,
+        pagination,
+      };
+      setData(result);
     } catch (error) {
       //
+    } finally {
+      setLoadingContent(false);
     }
   };
 
@@ -67,15 +84,28 @@ export default function Example() {
 
   const onSubmit = async (data: FormProducts) => {
     setLoading(true);
+    const { isPopular, isPublish, sizes, category } = data;
     try {
       await onUpload(images['mainImage']);
       await axios.post(
-        'api/product',
-        { ...data, price: +data.price, image: imageId.current },
+        process.env.NEXT_PUBLIC_SHEET_API as string,
+        {
+          ...data,
+          price: +data.price,
+          image: imageId.current,
+          id: crypto.randomUUID(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          isPopular: +isPopular,
+          isPublish: +isPublish,
+          sizes: sizes.join(', '),
+          category: category.join(', '),
+        },
         {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json; charset=utf-8',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
           },
         },
       );
@@ -123,14 +153,14 @@ export default function Example() {
   const onDelete = async (data: FormProducts) => {
     setLoadingContent(true);
     try {
-      // axios.delete('api/google', {
-      //   params: {
-      //     fileId: data.image,
-      //   },
-      // });
-      await axios.delete('api/product', {
+      axios.delete('api/google', {
         params: {
-          id: data.id,
+          fileId: data.image,
+        },
+      });
+      await axios.delete(`${process.env.NEXT_PUBLIC_SHEET_API}/id/${data.id}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
         },
       });
       await initialize();
@@ -145,19 +175,26 @@ export default function Example() {
     }
   };
 
+  const onChangePage = (page: number) => initialize(page);
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      {!!data.products.length && (
-        <div className="relative mt-10 mb-10 block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-          {loadingContent && (
-            <div className="absolute flex items-center justify-center w-full h-full top-0 z-50 left-0 bg-transparent">
-              <Spinner />
-            </div>
-          )}
-          <ListCategory data={data.products} onDelete={onDelete} />
-          <Pagination pagination={data.pagination} />
-        </div>
-      )}
+      <div className="relative mt-10 mb-10 block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        {loadingContent && (
+          <div className="absolute flex items-center justify-center w-full h-full top-0 z-50 left-0 bg-transparent">
+            <Spinner />
+          </div>
+        )}
+        {!!data.products.length && (
+          <>
+            <ListCategory data={data.products} onDelete={onDelete} />
+            <Pagination
+              pagination={data.pagination}
+              onChangePage={onChangePage}
+            />
+          </>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">

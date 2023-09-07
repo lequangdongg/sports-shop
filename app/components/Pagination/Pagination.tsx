@@ -2,11 +2,15 @@ import { PaginationType } from '@/lib/types';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 
-const Pagination: React.FC<{ pagination: PaginationType }> = ({ pagination }) => {
+const Pagination: React.FC<{
+  pagination: PaginationType;
+  onChangePage: (page: number) => void;
+}> = ({ pagination, onChangePage }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const onChangePage = (page: number): void => {
+  const handleChangePage = (page: number): void => {
     setCurrentPage(page);
+    onChangePage(page);
   };
 
   return (
@@ -17,7 +21,7 @@ const Pagination: React.FC<{ pagination: PaginationType }> = ({ pagination }) =>
             <button
               className="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               disabled={currentPage <= 1}
-              onClick={() => onChangePage(currentPage - 1)}
+              onClick={() => handleChangePage(currentPage - 1)}
             >
               <span className="sr-only">Previous</span>
               <svg
@@ -47,7 +51,7 @@ const Pagination: React.FC<{ pagination: PaginationType }> = ({ pagination }) =>
                       currentPage === index + 1,
                   },
                 )}
-                onClick={() => onChangePage(index + 1)}
+                onClick={() => handleChangePage(index + 1)}
               >
                 {index + 1}
               </button>
