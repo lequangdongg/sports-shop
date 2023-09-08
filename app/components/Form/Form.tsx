@@ -20,6 +20,7 @@ import {
   paginationCalculation,
   paginationGetItem,
 } from '@/app/helpers/pagination';
+import { getProducts } from '@/app/services/http';
 
 const uploads = [
   {
@@ -59,13 +60,9 @@ export default function Form() {
   const initialize = async (page = 1): Promise<void> => {
     try {
       setLoadingContent(true);
-      const res = await axios.get(process.env.NEXT_PUBLIC_SHEET_API as string, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
-        },
-      });
-      const products = paginationGetItem(res.data, 10, page);
-      const pagination = paginationCalculation(res.data.length, page);
+      const data = await getProducts();
+      const products = paginationGetItem(data, 10, page);
+      const pagination = paginationCalculation(data.length, page);
       const result = {
         products,
         pagination,
@@ -99,7 +96,6 @@ export default function Form() {
           isPopular: +isPopular,
           isPublish: +isPublish,
           sizes: sizes.join(', '),
-          category: category.join(', '),
         },
         {
           headers: {
@@ -317,17 +313,15 @@ export default function Form() {
                   render={({ field: { onChange, value } }) => (
                     <Select
                       id="category"
-                      isMulti
                       isSearchable={false}
                       placeholder="Chọn loại"
-                      closeMenuOnSelect={false}
                       value={typeProduct.find(
                         (product) =>
                           product.value === (value as unknown as string),
                       )}
                       options={typeProduct}
                       onChange={(data) => {
-                        onChange(data.map((item) => item.value));
+                        onChange(data?.value);
                       }}
                     />
                   )}
