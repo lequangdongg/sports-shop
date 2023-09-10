@@ -16,7 +16,7 @@ const DataGrid: React.FC<{ products: FormProducts[]; title: string }> = ({
         {products.map((product) => (
           <Link
             key={product.id}
-            href={`/product/${product.slug}`}
+            href={`/products/${product.slug}`}
             className="group"
           >
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">

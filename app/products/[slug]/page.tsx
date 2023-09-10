@@ -68,7 +68,7 @@ export default async function Product({
       );
     })
     .filter((product) => product.id !== productDetail?.id);
-
+  console.log(productDetail);
   return (
     <section className="bg-white">
       <div className="pt-6">
