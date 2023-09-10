@@ -44,7 +44,10 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const products = (await staticFetching()) || [];
+  const products: string[] = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
+  ).then((res) => res.json());
+
   return products.map((product) => ({
     slug: product[DataResponse.Slug],
   }));
