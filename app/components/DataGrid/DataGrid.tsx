@@ -25,7 +25,7 @@ const DataGrid: React.FC<{ products: FormProducts[]; title: string }> = ({
                 alt={product.title}
                 width={500}
                 height={500}
-                className="h-full w-full object-cover object-center group-hover:opacity-75"
+                className="h-full w-full object-cover object-center"
               />
             </div>
             <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>

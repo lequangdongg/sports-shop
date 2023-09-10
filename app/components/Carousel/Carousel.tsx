@@ -55,7 +55,7 @@ const Carousel: React.FC<{ data: FormProducts[] }> = ({ data }) => {
                   alt={product.title}
                   width={235}
                   height={235}
-                  className="w-235 h-235 group-hover:opacity-75"
+                  className="h-full w-full xl:w-235 xl:h-235 2xl:w-235 2xl:h-235 lg:xl:w-235 lg:h-235 object-cover object-center"
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
