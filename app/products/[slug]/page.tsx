@@ -1,11 +1,12 @@
 import Carousel from '@/app/components/Carousel';
 import Footer from '@/app/components/Footer';
 import { formatCurrency } from '@/app/helpers/format-currency';
-import { getProducts } from '@/app/services/http';
+import { getProducts, staticFetching } from '@/app/services/http';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { FormProducts } from '@/lib/types';
+import { DataResponse } from '@/utils/constants';
 
 type Props = {
   params: { slug: string };
@@ -22,26 +23,29 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = params;
 
-  const product = await getProducts({ slug }, '/search');
+  const response = await staticFetching();
+
+  const product = response.find(
+    (data) => data[DataResponse.Slug] === slug,
+  ) as string;
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: product[0].title,
+    title: product[DataResponse.Title],
     openGraph: {
       images: [
-        `https://lh3.googleusercontent.com/d/${product[0].image}`,
+        `https://lh3.googleusercontent.com/d/${product[DataResponse.Image]}`,
         ...previousImages,
       ],
-      title: product[0].title,
+      title: product[DataResponse.Title],
     },
   };
 }
 
 export async function generateStaticParams() {
-  const products = await getProducts();
-
+  const products = await staticFetching();
   return products.map((product) => ({
-    slug: product.slug,
+    slug: product[DataResponse.Slug],
   }));
 }
 
@@ -50,25 +54,31 @@ export default async function Product({
 }: {
   params: { slug: string };
 }) {
-  const data = await getProducts();
+  const data = await staticFetching();
+
   const productDetail = data.find(
-    ({ slug }) => slug === params.slug,
-  ) as FormProducts;
+    (item) => item[DataResponse.Slug] === params.slug,
+  ) as string;
   const relatedProducts = data
     .filter((product) => {
-      const categoryMapped = (productDetail?.category as unknown as string)
+      const categoryMapped = (
+        productDetail?.[DataResponse.Category] as unknown as string
+      )
         .split(', ')
         .reduce((acc, cur) => ({ ...acc, [cur]: cur }), {});
-      const productCategories = (product.category as unknown as string).split(
-        ', ',
-      );
+      const productCategories = (
+        product[DataResponse.Category] as unknown as string
+      ).split(', ');
 
       return productCategories.some(
         (category) => category === (categoryMapped as any)[category],
       );
     })
-    .filter((product) => product.id !== productDetail?.id);
-  console.log(productDetail);
+    .filter(
+      (product) =>
+        product[DataResponse.Id] !== productDetail?.[DataResponse.Id],
+    );
+
   return (
     <section className="bg-white">
       <div className="pt-6">
@@ -105,8 +115,10 @@ export default async function Product({
         <div className="mt-6 px-6 lg:px-8 max-w-full sm:px-6 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 rounded-lg lg:block">
             <Image
-              src={`https://lh3.googleusercontent.com/d/${productDetail.image}`}
-              alt={productDetail.title}
+              src={`https://lh3.googleusercontent.com/d/${
+                productDetail[DataResponse.Image]
+              }`}
+              alt={productDetail[DataResponse.Title]}
               width={500}
               height={500}
               className="h-full w-full object-cover object-center"
@@ -115,7 +127,7 @@ export default async function Product({
           <div className="max-w-2xl lg:max-w-max">
             <div className="lg:col-span-2 lg:pr-8">
               <h1 className="text-2xl xl:mt-3 mt-3 font-bold tracking-tight text-gray-900 sm:text-3xl sm:mt-3">
-                {productDetail.title}
+                {productDetail[DataResponse.Title]}
               </h1>
             </div>
 
@@ -123,7 +135,7 @@ export default async function Product({
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <p className="mt-3 text-3xl tracking-tight text-gray-900">
-                {formatCurrency(productDetail.price)}
+                {formatCurrency(+productDetail[DataResponse.Price])}
               </p>
 
               <div className="mt-2 max-w-full">
@@ -135,7 +147,7 @@ export default async function Product({
                   <div className="mt-4">
                     <label className="sr-only">Choose a size</label>
                     <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {(productDetail.sizes as unknown as string)
+                      {(productDetail[DataResponse.Sizes] as unknown as string)
                         .split(', ')
                         .map((size) => (
                           <div
@@ -171,16 +183,19 @@ export default async function Product({
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
                 <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">
-                    {productDetail.description}
-                  </p>
+                  <p
+                    className="text-sm text-gray-600"
+                    dangerouslySetInnerHTML={{
+                      __html: productDetail[DataResponse.Description],
+                    }}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Carousel data={relatedProducts} />
+      {<Carousel data={relatedProducts} />}
       <Footer />
     </section>
   );

@@ -26,3 +26,18 @@ export const typeProduct = [
     label: TypeProductEnum.DesignUponRequest,
   },
 ];
+
+
+export enum DataResponse {
+  Id = 0,
+  Title,
+  Slug,
+  Price,
+  Description,
+  Image,
+  isPopular,
+  Sizes,
+  Category,
+  CreatedAt,
+  UpdatedAt
+}

@@ -1,19 +1,12 @@
-import { FormProducts } from '@/lib/types';
 import axios from 'axios';
 
-export const getProducts = async (
-  params = {},
-  suffix = '/'
-): Promise<FormProducts[]> => {
-  const res = await axios.get<any, { data: FormProducts[] }>(
-    `${process.env.NEXT_PUBLIC_SHEET_API}${suffix}`,
-    {
-      params,
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
-      },
-    },
-  );
+export const getProducts = async (): Promise<string[]> => {
+  const res = await axios.get<any, { data: string[] }>(`api/sheet`);
 
   return res.data;
+};
+
+export const staticFetching = async (): Promise<string[]> => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`);
+  return (await response.json()) as string[];
 };

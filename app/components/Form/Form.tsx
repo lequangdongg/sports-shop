@@ -10,7 +10,7 @@ import Attachment from '../Attachment';
 import { omit } from 'lodash';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
-import { sizeProduct, typeProduct } from '@/utils/constants';
+import { DataResponse, sizeProduct, typeProduct } from '@/utils/constants';
 import { FormProducts, PaginationType } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import ListCategory from '../ListCategory';
@@ -41,7 +41,7 @@ export default function Form() {
   const router = useRouter();
   const [images, setImages] = useState<Record<string, File>>({});
   const [data, setData] = useState<{
-    products: FormProducts[];
+    products: string[];
     pagination: PaginationType;
   }>({
     products: [],
@@ -64,7 +64,7 @@ export default function Form() {
     try {
       setLoadingContent(true);
       const data = await getProducts();
-      const products = paginationGetItem(data, 10, page);
+      const products = paginationGetItem<string>(data, 10, page);
       const pagination = paginationCalculation(data.length, page);
       const result = {
         products,
@@ -88,7 +88,7 @@ export default function Form() {
     try {
       await onUpload(images['mainImage']);
       await axios.post(
-        process.env.NEXT_PUBLIC_SHEET_API as string,
+        `api/sheet`,
         {
           ...data,
           price: +data.price,
@@ -103,7 +103,6 @@ export default function Form() {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json; charset=utf-8',
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
           },
         },
       );
@@ -150,17 +149,17 @@ export default function Form() {
     setImages(omit(images, name));
   };
 
-  const onDelete = async (data: FormProducts) => {
+  const onDelete = async (data: string, index: number) => {
     setLoadingContent(true);
     try {
       axios.delete('api/google', {
         params: {
-          fileId: data.image,
+          fileId: data[DataResponse.Image],
         },
       });
-      await axios.delete(`${process.env.NEXT_PUBLIC_SHEET_API}/id/${data.id}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SHEET_TOKEN}`,
+      await axios.delete(`api/sheet`, {
+        params: {
+          index: index + 1,
         },
       });
       await initialize();

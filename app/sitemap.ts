@@ -1,9 +1,10 @@
+import { DataResponse } from '@/utils/constants';
 import { getProducts } from './services/http';
 
 export default async function sitemap() {
   const data = await getProducts();
   const productDetail = data.map((product) => ({
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}/products/${product.slug}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}/products/${product[DataResponse.Slug]}`,
     lastModified: new Date(),
   }));
 
