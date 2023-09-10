@@ -1,8 +1,8 @@
 import { DataResponse } from '@/utils/constants';
-import { getProducts } from './services/http';
+import { staticFetching } from './services/http';
 
 export default async function sitemap() {
-  const data = await getProducts();
+  const data = await staticFetching();
   const productDetail = data.map((product) => ({
     url: `${process.env.NEXT_PUBLIC_BASE_URL}/products/${product[DataResponse.Slug]}`,
     lastModified: new Date(),

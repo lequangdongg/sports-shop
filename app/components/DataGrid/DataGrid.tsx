@@ -1,5 +1,4 @@
 import { formatCurrency } from '@/app/helpers/format-currency';
-import { FormProducts } from '@/lib/types';
 import { DataResponse } from '@/utils/constants';
 import Image from 'next/image';
 import Link from 'next/link';
