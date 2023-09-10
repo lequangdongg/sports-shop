@@ -43,7 +43,7 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const products = await staticFetching();
+  const products = await staticFetching() || [];
   return products.map((product) => ({
     slug: product[DataResponse.Slug],
   }));
