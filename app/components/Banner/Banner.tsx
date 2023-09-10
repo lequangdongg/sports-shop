@@ -19,11 +19,11 @@ const Banner = () => {
       <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
       <div className="mx-auto max-w-2xl lg:max-w-4xl">
         <Image
-          className="mx-auto h-12"
-          src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg"
+          className="mx-auto"
+          src="/hm-logo.png"
           alt=""
-          width={189}
-          height={48}
+          width={300}
+          height={100}
         />
         <figure className="mt-10">
           <blockquote className="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
@@ -31,7 +31,7 @@ const Banner = () => {
               “Chuyên cung cấp các mặt hàng và phụ kiện liên quan đến thể thao.”
             </p>
           </blockquote>
-          <figcaption className="mt-10">
+          {/* <figcaption className="mt-10">
             <Image
               className="mx-auto h-10 w-10 rounded-full"
               src="https://scontent.xx.fbcdn.net/v/t39.30808-1/283003174_789100248738748_6911774192362152147_n.jpg?stp=dst-jpg_p100x100&_nc_cat=111&ccb=1-7&_nc_sid=5fac6f&_nc_ohc=qP43pxGoivoAX8kBCIp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=00_AfCHI9OIM5T9RCKq3D-TOjeyrO-7kXd3cyfSs-Hju1OvKQ&oe=64FC41F9"
@@ -54,7 +54,7 @@ const Banner = () => {
                 <a href="tel:+84933857472">0933857472</a>
               </div>
             </div>
-          </figcaption>
+          </figcaption> */}
           <div className="flex flex-col justify-center items-center gap-1">
             {mediaSocials.map((social) => (
               <div key={social.name}>

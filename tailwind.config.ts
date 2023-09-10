@@ -16,6 +16,12 @@ const config: Config = {
       screens: {
         'md-max': { max: '767px' },
       },
+      height: {
+        '235': '235px'
+      },
+      width: {
+        '235': '235px'
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

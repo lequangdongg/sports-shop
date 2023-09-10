@@ -1,19 +1,20 @@
 import { formatCurrency } from '@/app/helpers/format-currency';
 import { FormProducts } from '@/lib/types';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 
 const ListCategory: React.FC<{
   data: FormProducts[];
   onDelete: (data: FormProducts) => void;
 }> = ({ data, onDelete }) => {
+
   return (
     <ul className="max-w max-h-96 overflow-auto divide-y divide-gray-200 dark:divide-gray-700">
-      {data.map((item, index) => (
+      {data.map((item) => (
         <li className="pb-3 sm:pb-4" key={item.id}>
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
-              <img
+              <Image
                 className="w-30 h-30"
                 src={`https://lh3.googleusercontent.com/d/${item.image}`}
                 alt="Neil image"

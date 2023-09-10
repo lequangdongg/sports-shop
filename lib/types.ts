@@ -22,11 +22,8 @@ export type FormProducts = {
   image: string;
   price: number;
   description: string;
-  descriptionDetail: string;
-  highlights?: string;
   sizes: string[];
   category: string[];
-  isPublish: boolean;
   isPopular: boolean;
 };
 

@@ -36,6 +36,7 @@ export default function Form() {
     reset,
     control,
     formState: { errors },
+    getValues,
   } = useForm<FormProducts>();
   const router = useRouter();
   const [images, setImages] = useState<Record<string, File>>({});
@@ -56,6 +57,8 @@ export default function Form() {
   const [loading, setLoading] = useState(false);
   const [loadingContent, setLoadingContent] = useState(false);
   const imageId = useRef<string>('');
+  const sizeRef = useRef<any>();
+  const categoryRef = useRef<any>();
 
   const initialize = async (page = 1): Promise<void> => {
     try {
@@ -81,7 +84,7 @@ export default function Form() {
 
   const onSubmit = async (data: FormProducts) => {
     setLoading(true);
-    const { isPopular, isPublish, sizes, category } = data;
+    const { isPopular, sizes } = data;
     try {
       await onUpload(images['mainImage']);
       await axios.post(
@@ -94,7 +97,6 @@ export default function Form() {
           createdAt: new Date(),
           updatedAt: new Date(),
           isPopular: +isPopular,
-          isPublish: +isPublish,
           sizes: sizes.join(', '),
         },
         {
@@ -113,6 +115,8 @@ export default function Form() {
         title: '',
         slug: '',
       });
+      sizeRef.current.clearValue();
+      categoryRef.current.clearValue();
       setImages({});
       initialize();
     } catch (error) {
@@ -191,7 +195,6 @@ export default function Form() {
           </>
         )}
       </div>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
@@ -257,22 +260,6 @@ export default function Form() {
                 />
               </div>
               <div className="col-span-full">
-                <TextArea
-                  register={register}
-                  label="Các điểm nổi bật sản phẩm"
-                  name="highlights"
-                  errors={errors}
-                />
-              </div>
-              <div className="col-span-full">
-                <TextArea
-                  register={register}
-                  label="Mô tả chi tiết sản phẩm"
-                  name="descriptionDetail"
-                  errors={errors}
-                />
-              </div>
-              <div className="col-span-full">
                 <label
                   htmlFor="message"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -285,6 +272,10 @@ export default function Form() {
                   render={({ field: { onChange, value } }) => (
                     <Select
                       isMulti
+                      ref={(ref) => {
+                        sizeRef.current = ref;
+                      }}
+                      required
                       id="size"
                       placeholder="Chọn size"
                       isSearchable={false}
@@ -313,6 +304,10 @@ export default function Form() {
                   render={({ field: { onChange, value } }) => (
                     <Select
                       id="category"
+                      ref={(ref) => {
+                        categoryRef.current = ref;
+                      }}
+                      required
                       isSearchable={false}
                       placeholder="Chọn loại"
                       value={typeProduct.find(
@@ -329,12 +324,6 @@ export default function Form() {
               </div>
               <div className="col-span-full">
                 <div className="flex gap-3">
-                  <Checkbox
-                    register={register}
-                    label="Công khai sản phẩm"
-                    name="isPublish"
-                    errors={errors}
-                  />
                   <Checkbox
                     register={register}
                     label="Sản phẩm nổi bật"
