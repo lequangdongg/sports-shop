@@ -21,14 +21,20 @@ const HomePage = async () => {
         products={data.filter(
           ({ category }) => String(category) === TypeProductEnum.SportClothes,
         )}
-        title="Đồ dùng thể thao"
+        title={TypeProductEnum.SportClothes}
       />
 
       <DataGrid
         products={data.filter(
-          ({ category }) => String(category) === TypeProductEnum.SportClothes,
+          ({ category }) => String(category) === TypeProductEnum.SportsAccessories,
         )}
-        title="Dụng cụ thể thao"
+        title={TypeProductEnum.SportsAccessories}
+      />
+      <DataGrid
+        products={data.filter(
+          ({ category }) => String(category) === TypeProductEnum.DesignUponRequest,
+        )}
+        title={TypeProductEnum.DesignUponRequest}
       />
       <Footer />
     </div>
