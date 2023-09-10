@@ -1,11 +1,10 @@
 import Carousel from '@/app/components/Carousel';
 import Footer from '@/app/components/Footer';
 import { formatCurrency } from '@/app/helpers/format-currency';
-import { getProducts, staticFetching } from '@/app/services/http';
+import { staticFetching } from '@/app/services/http';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata, ResolvingMetadata } from 'next';
-import { FormProducts } from '@/lib/types';
 import { DataResponse } from '@/utils/constants';
 
 type Props = {
@@ -43,7 +42,7 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const products = await staticFetching() || [];
+  const products = (await staticFetching()) || [];
   return products.map((product) => ({
     slug: product[DataResponse.Slug],
   }));
