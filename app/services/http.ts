@@ -7,6 +7,8 @@ export const getProducts = async (): Promise<string[]> => {
 };
 
 export const staticFetching = async (): Promise<string[]> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`);
-  return (await response.json()) as string[];
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
+  ).then((res) => res.json());
+  return response;
 };

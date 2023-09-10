@@ -22,7 +22,9 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = params;
 
-  const response = await staticFetching();
+  const response: string[] = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
+  ).then((res) => res.json());
 
   const product = response.find(
     (data) => data[DataResponse.Slug] === slug,
