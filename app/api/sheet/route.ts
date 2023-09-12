@@ -44,11 +44,10 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: NextRequest) {
   const index = request.nextUrl.searchParams.get('index') as string;
-
   google.sheets({ version: 'v4' }).spreadsheets.values.batchClear({
     spreadsheetId: process.env.SHEET_FILE_ID,
     requestBody: {
-      ranges: [`A:${+index}:W${+index}`],
+      ranges: [`A${+index}:W${+index}`],
     },
   });
   return NextResponse.json({});

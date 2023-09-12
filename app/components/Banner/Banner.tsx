@@ -31,30 +31,6 @@ const Banner = () => {
               “Chuyên cung cấp các mặt hàng và phụ kiện liên quan đến thể thao.”
             </p>
           </blockquote>
-          {/* <figcaption className="mt-10">
-            <Image
-              className="mx-auto h-10 w-10 rounded-full"
-              src="https://scontent.xx.fbcdn.net/v/t39.30808-1/283003174_789100248738748_6911774192362152147_n.jpg?stp=dst-jpg_p100x100&_nc_cat=111&ccb=1-7&_nc_sid=5fac6f&_nc_ohc=qP43pxGoivoAX8kBCIp&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=00_AfCHI9OIM5T9RCKq3D-TOjeyrO-7kXd3cyfSs-Hju1OvKQ&oe=64FC41F9"
-              alt=""
-              width={80}
-              height={80}
-            />
-            <div className="mt-4 flex items-center justify-center space-x-3 text-base">
-              <div className="font-semibold text-gray-900">Hoang Minh Phan</div>
-              <svg
-                viewBox="0 0 2 2"
-                width={3}
-                height={3}
-                aria-hidden="true"
-                className="fill-gray-900"
-              >
-                <circle cx={1} cy={1} r={1} />
-              </svg>
-              <div className="text-blue-600">
-                <a href="tel:+84933857472">0933857472</a>
-              </div>
-            </div>
-          </figcaption> */}
           <div className="flex flex-col justify-center items-center gap-1">
             {mediaSocials.map((social) => (
               <div key={social.name}>
