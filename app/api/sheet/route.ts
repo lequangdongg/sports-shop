@@ -8,7 +8,7 @@ export async function GET(request: Request) {
       spreadsheetId: process.env.SHEET_FILE_ID,
       range: process.env.SHEET_NAME,
     });
-  return NextResponse.json(result.data.values);
+  return NextResponse.json(result?.data?.values || []);
 }
 
 export async function POST(request: Request) {

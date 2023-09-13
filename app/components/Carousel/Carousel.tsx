@@ -18,8 +18,8 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
       <h2 className="text-2xl font-bold text-gray-900">
         Các sản phẩm thể thao nổi bật
       </h2>
-      {
-        !!data.length && <Fragment>
+      {!!data.length && (
+        <Fragment>
           <Swiper
             slidesPerView={1}
             spaceBetween={10}
@@ -61,9 +61,9 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
                         product[DataResponse.Image]
                       }`}
                       alt={product[DataResponse.Title]}
-                      width={235}
+                      width={500}
                       height={235}
-                      className="h-full w-full xl:w-235 xl:h-235 2xl:w-235 2xl:h-235 lg:xl:w-235 lg:h-235 object-cover object-center"
+                      className="h-full w-full xl:h-235 2xl:w-235 2xl:h-235 lg:h-235 object-cover object-center"
                     />
                   </div>
                   <h3 className="mt-4 text-sm text-gray-700">
@@ -123,7 +123,7 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
             </button>
           </Fragment>
         </Fragment>
-      }
+      )}
     </div>
   );
 };
