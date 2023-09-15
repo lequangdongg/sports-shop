@@ -26,8 +26,10 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <FacebookMessenger />
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <FacebookMessenger />
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
