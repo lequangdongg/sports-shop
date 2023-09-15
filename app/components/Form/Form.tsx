@@ -67,7 +67,7 @@ export default function Form() {
       const products = paginationGetItem<string>(data, 10, page);
       const pagination = paginationCalculation(data.length, page);
       const result = {
-        products,
+        products: data,
         pagination,
       };
       setData(result);
@@ -159,7 +159,7 @@ export default function Form() {
       });
       await axios.delete(`api/sheet`, {
         params: {
-          index: index + 1,
+          index,
         },
       });
       await initialize();
@@ -187,10 +187,10 @@ export default function Form() {
         {!!data.products.length && (
           <>
             <ListCategory data={data.products} onDelete={onDelete} />
-            <Pagination
+            {/* <Pagination
               pagination={data.pagination}
               onChangePage={onChangePage}
-            />
+            /> */}
           </>
         )}
       </div>

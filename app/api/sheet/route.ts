@@ -44,10 +44,27 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: NextRequest) {
   const index = request.nextUrl.searchParams.get('index') as string;
-  google.sheets({ version: 'v4' }).spreadsheets.values.batchClear({
+  // google.sheets({ version: 'v4' }).spreadsheets.values.batchClear({
+  //   spreadsheetId: process.env.SHEET_FILE_ID,
+  //   requestBody: {
+  //     ranges: [`A${+index}:W${+index}`],
+  //   },
+  // });
+
+  google.sheets({ version: 'v4' }).spreadsheets.batchUpdate({
     spreadsheetId: process.env.SHEET_FILE_ID,
     requestBody: {
-      ranges: [`A${+index}:W${+index}`],
+      requests: [
+        {
+          deleteDimension: {
+            range: {
+              dimension: 'ROWS',
+              startIndex: +index,
+              endIndex: +index + 1,
+            },
+          },
+        },
+      ],
     },
   });
   return NextResponse.json({});

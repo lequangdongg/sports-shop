@@ -6,8 +6,8 @@ import { Roboto } from 'next/font/google';
 const inter = Roboto({ subsets: ['vietnamese'], weight: '500' });
 
 export const metadata: Metadata = {
-  title: 'Hoàng Minh shop Thể thao',
-  description: 'Hoàng Minh shop, chuyên cung cấp các mặt hàng về thể thao(sports)',
+  title: 'HM-sports shop Thể thao',
+  description: 'HM-sports shop, chuyên cung cấp các mặt hàng về thể thao(sports)',
 };
 
 export default function RootLayout({
