@@ -63,7 +63,7 @@ export default function RootLayout({
         <Script strategy="lazyOnload">
           {`
       var chatbox = document.getElementById('fb-customer-chat');
-      chatbox.setAttribute("page_id", "xxREPLACEMEWITHREALDATAxxxx");
+      chatbox.setAttribute("page_id", "115229745014270");
       chatbox.setAttribute("attribution", "biz_inbox");
 
       window.fbAsyncInit = function() {
