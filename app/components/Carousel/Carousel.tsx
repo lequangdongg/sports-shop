@@ -14,7 +14,10 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
   const swiperRef = useRef<SwiperType>();
 
   return (
-    <div className="relative mx-auto px-4 py-4 w-full lg:px-8">
+    <section
+      className="relative mx-auto px-4 py-4 w-full lg:px-8"
+      id="san-pham-noi-bat"
+    >
       <h2 className="text-2xl font-bold text-gray-900">
         Các sản phẩm thể thao nổi bật
       </h2>
@@ -124,7 +127,7 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
           </Fragment>
         </Fragment>
       )}
-    </div>
+    </section>
   );
 };
 

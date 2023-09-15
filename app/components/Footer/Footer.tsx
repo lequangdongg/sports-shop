@@ -14,7 +14,7 @@ const Footer = () => {
           </h6>
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
             <a
-              href="https://www.facebook.com/jackphan100895"
+              href="https://www.facebook.com/profile.php?id=61551244767543"
               target="_blank"
               className="opacity-80 transition-opacity hover:opacity-100"
             >
