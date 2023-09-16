@@ -20,6 +20,9 @@ export default function BannerPage() {
   const bannerRef = useRef<HTMLDivElement>(null);
 
   const onNavigate = (id: string) => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
     bannerRef.current?.parentElement
       ?.querySelector(id)
       ?.scrollIntoView({ behavior: 'smooth' });
@@ -38,16 +41,18 @@ export default function BannerPage() {
               <Image src="/hm-logo.png" alt="" width={70} height={30} />
             </Link>
           </div>
-          {!mobileMenuOpen && <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>}
+          {!mobileMenuOpen && (
+            <div className="flex lg:hidden">
+              <button
+                type="button"
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                onClick={() => setMobileMenuOpen(true)}
+              >
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+          )}
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <a
@@ -78,7 +83,12 @@ export default function BannerPage() {
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5">
-                <Image src="/hm-logo.png" alt="shop-logo" width={70} height={30} />
+                <Image
+                  src="/hm-logo.png"
+                  alt="shop-logo"
+                  width={70}
+                  height={30}
+                />
               </Link>
               <button
                 type="button"
