@@ -22,6 +22,9 @@ const config: Config = {
       width: {
         '235': '235px'
       },
+      animation: {
+        'bounce': 'bounce 0.4s infinite'
+      }
     },
   },
   plugins: [require('@tailwindcss/forms')],

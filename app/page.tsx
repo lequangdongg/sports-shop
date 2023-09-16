@@ -18,6 +18,7 @@ const HomePage = async () => {
       <ProductBanner />
       <Carousel
         data={data.filter((item) => item[DataResponse.isPopular] === '1')}
+        isSelling
       />
       <DataGrid
         products={data.filter(

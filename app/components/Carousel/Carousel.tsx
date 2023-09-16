@@ -10,7 +10,10 @@ import Link from 'next/link';
 import { formatCurrency } from '@/app/helpers/format-currency';
 import { DataResponse } from '@/utils/constants';
 
-const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
+const Carousel: React.FC<{ data: string[]; isSelling?: boolean }> = ({
+  data,
+  isSelling,
+}) => {
   const swiperRef = useRef<SwiperType>();
 
   return (
@@ -58,7 +61,7 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
                   href={`/products/${product[DataResponse.Slug]}`}
                   className="group"
                 >
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                  <div className="relative aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                     <Image
                       src={`https://lh3.googleusercontent.com/d/${
                         product[DataResponse.Image]
@@ -68,13 +71,25 @@ const Carousel: React.FC<{ data: string[] }> = ({ data }) => {
                       height={235}
                       className="h-full w-full xl:h-235 2xl:w-235 2xl:h-235 lg:h-235 object-cover object-center"
                     />
+                    {!!product[DataResponse.ProductHot] && (
+                      <div className="absolute left-[-34px] top-[32px] w-[170px] transform -rotate-45 bg-red-500 text-center text-white font-semibold py-1">
+                        Bán chạy
+                      </div>
+                    )}
                   </div>
                   <h3 className="mt-4 text-sm text-gray-700">
                     {product[DataResponse.Title]}
                   </h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {formatCurrency(+product[DataResponse.Price])}
-                  </p>
+                  <div className="flex justify-between items-center">
+                    <p className="mt-1 text-lg font-medium text-gray-900">
+                      {formatCurrency(+product[DataResponse.Price])}
+                    </p>
+                    {isSelling && (
+                      <span className="mt-1 animate-bounce font-medium bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                        Đã bán {product[DataResponse.Sold] || 5}
+                      </span>
+                    )}
+                  </div>
                 </Link>
               </SwiperSlide>
             ))}

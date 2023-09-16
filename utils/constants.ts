@@ -39,5 +39,7 @@ export enum DataResponse {
   Sizes,
   Category,
   CreatedAt,
-  UpdatedAt
+  UpdatedAt,
+  Sold,
+  ProductHot
 }
