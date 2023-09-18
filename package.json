@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
+    "postinstall": "husky install",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -16,9 +16,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@hookform/error-message": "^2.0.1",
-    "@prisma/client": "^5.2.0",
     "@types/lodash": "^4.14.197",
-    "@vercel/postgres": "^0.4.1",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
     "classnames": "^2.3.2",
@@ -44,7 +42,6 @@
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "husky": "^8.0.3",
-    "prisma": "^5.2.0",
     "typescript": "5.2.2"
   }
 }
