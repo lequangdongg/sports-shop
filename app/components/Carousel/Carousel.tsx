@@ -71,11 +71,11 @@ const Carousel: React.FC<{ data: string[]; isSelling?: boolean }> = ({
                       height={235}
                       className="h-full w-full xl:h-235 2xl:w-235 2xl:h-235 lg:h-235 object-cover object-center"
                     />
-                    {!!product[DataResponse.ProductHot] && (
+                    {/* {!!product[DataResponse.ProductHot] && (
                       <div className="absolute left-[-34px] top-[32px] w-[170px] transform -rotate-45 bg-red-500 text-center text-white font-semibold py-1">
                         Bán chạy
                       </div>
-                    )}
+                    )} */}
                   </div>
                   <h3 className="mt-4 text-sm text-gray-700">
                     {product[DataResponse.Title]}
@@ -85,7 +85,7 @@ const Carousel: React.FC<{ data: string[]; isSelling?: boolean }> = ({
                       {formatCurrency(+product[DataResponse.Price])}
                     </p>
                     {isSelling && (
-                      <span className="mt-1 animate-bounce font-medium bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                      <span className="mt-1 animate-bounce bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
                         Đã bán {product[DataResponse.Sold] || 5}
                       </span>
                     )}
