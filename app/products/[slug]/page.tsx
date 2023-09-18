@@ -7,6 +7,8 @@ import Link from 'next/link';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { DataResponse } from '@/utils/constants';
 
+export const revalidate = 3600;
+
 type Props = {
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -24,6 +26,7 @@ export async function generateMetadata(
 
   const response: string[] = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
+    { next: { revalidate: 3600 } },
   ).then((res) => res.json());
 
   const product = response.find(
@@ -46,6 +49,7 @@ export async function generateMetadata(
 export async function generateStaticParams() {
   const products: string[] = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
+    { next: { revalidate: 3600 } },
   ).then((res) => res.json());
 
   return products.map((product) => ({
