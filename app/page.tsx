@@ -15,7 +15,7 @@ const HomePage = async () => {
     <div className="bg-white">
       <BannerPage />
       {/* <Banner /> */}
-      <ProductBanner />
+      {/* <ProductBanner /> */}
       <Carousel
         data={data.filter((item) => item[DataResponse.isPopular] === '1')}
         isSelling
