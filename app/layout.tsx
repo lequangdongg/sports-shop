@@ -29,6 +29,15 @@ export default function RootLayout({
         <body className={inter.className}>
           <FacebookMessenger />
           {children}
+
+          <div
+            id="marketing-banner"
+            className="fixed z-50 flex flex-col md:flex-row justify-between p-4 translate-x-0 right-0 bottom-28 bg-violet-100 text-violet-800 lg:text-lg 2xl:text-2xl xl:text-xl md:text-xs font-medium rounded dark:bg-gray-700 dark:text-violet-400 border border-violet-400"
+          >
+            <p className="flex flex-col items-start md:items-center md:flex-row leading-0">
+              Liên hệ zalo: 0902.283.051
+            </p>
+          </div>
         </body>
       </html>
     </ClerkProvider>

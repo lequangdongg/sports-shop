@@ -20,7 +20,7 @@ const DataGrid: React.FC<{
             href={`/products/${product[DataResponse.Slug]}`}
             className="group"
           >
-            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+            <div className="h-96 overflow-hidden rounded-lg bg-gray-200">
               <Image
                 src={`https://lh3.googleusercontent.com/d/${
                   product[DataResponse.Image]
