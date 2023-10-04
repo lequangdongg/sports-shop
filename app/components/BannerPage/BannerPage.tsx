@@ -7,7 +7,9 @@ import Link from 'next/link';
 
 const navigation = [
   { name: 'Sản phẩm nổi bật', href: '#san-pham-noi-bat' },
-  { name: 'Quần áo thể thao', href: '#quan-ao-the-thao' },
+  { name: 'Quần thể thao', href: '#quan-the-thao' },
+  { name: 'Áo thể thao', href: '#ao-the-thao' },
+  { name: 'Đồ bộ thể thao', href: '#do-bo-the-thao' },
   { name: 'Phụ kiện thể thao', href: '#phu-kien-the-thao' },
   {
     name: 'Thiết kế quần áo thi đấu theo yêu cầu',

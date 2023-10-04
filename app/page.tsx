@@ -23,10 +23,26 @@ const HomePage = async () => {
       <DataGrid
         products={data.filter(
           (item) =>
-            item[DataResponse.Category] === TypeProductEnum.SportClothes,
+            item[DataResponse.Category] === TypeProductEnum.SportShorts,
         )}
-        title={TypeProductEnum.SportClothes}
-        idSection="quan-ao-the-thao"
+        title={TypeProductEnum.SportShorts}
+        idSection="quan-the-thao"
+      />
+      <DataGrid
+        products={data.filter(
+          (item) =>
+            item[DataResponse.Category] === TypeProductEnum.ClothesSports,
+        )}
+        title={TypeProductEnum.ClothesSports}
+        idSection="ao-the-thao"
+      />
+      <DataGrid
+        products={data.filter(
+          (item) =>
+            item[DataResponse.Category] === TypeProductEnum.SportsWear,
+        )}
+        title={TypeProductEnum.SportsWear}
+        idSection="do-bo-the-thao"
       />
 
       <DataGrid
