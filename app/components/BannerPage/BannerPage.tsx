@@ -24,10 +24,12 @@ export default function BannerPage() {
   const onNavigate = (id: string) => {
     if (mobileMenuOpen) {
       setMobileMenuOpen(false);
+      bannerRef.current?.parentElement?.querySelector(id)?.scrollIntoView(true);
+    } else {
+      bannerRef.current?.parentElement
+        ?.querySelector(id)
+        ?.scrollIntoView({ behavior: 'smooth' });
     }
-    bannerRef.current?.parentElement
-      ?.querySelector(id)
-      ?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
