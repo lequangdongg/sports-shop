@@ -29,9 +29,9 @@ export async function generateMetadata(
     { next: { revalidate: 3600 } },
   );
 
-  const result: string[] = await response.json();
+  const result: string[] = await response?.json();
 
-  const product = result.find(
+  const product = (result || []).find(
     (data) => data[DataResponse.Slug] === slug,
   ) as string;
   const previousImages = (await parent).openGraph?.images || [];
@@ -52,8 +52,8 @@ export async function generateStaticParams() {
   const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`, {
     next: { revalidate: 3600 },
   });
-  const products: string[] = await data.json();
-  return products.map((product) => ({
+  const products: string[] = await data?.json();
+  return (products || []).map((product) => ({
     slug: product[DataResponse.Slug],
   }));
 }

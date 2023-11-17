@@ -11,6 +11,6 @@ export const staticFetching = async (): Promise<string[]> => {
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
     { next: { revalidate: 3600 } },
   );
-  const data = await response.json();
-  return data;
+  const data = await response?.json();
+  return data || [];
 };
