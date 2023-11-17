@@ -48,15 +48,15 @@ function classNames(...classes: string[]) {
 //   };
 // }
 
-export async function generateStaticParams() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`, {
-    next: { revalidate: 3600 },
-  });
-  const products: string[] = await data?.json();
-  return (products || []).map((product) => ({
-    slug: product[DataResponse.Slug],
-  }));
-}
+// export async function generateStaticParams() {
+//   const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`, {
+//     next: { revalidate: 3600 },
+//   });
+//   const products: string[] = await data?.json();
+//   return (products || []).map((product) => ({
+//     slug: product[DataResponse.Slug],
+//   }));
+// }
 
 export default async function Product({
   params,
