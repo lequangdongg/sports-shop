@@ -19,7 +19,7 @@ function classNames(...classes: string[]) {
 }
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { slug } = params;
