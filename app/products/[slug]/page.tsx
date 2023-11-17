@@ -24,12 +24,14 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { slug } = params;
 
-  const response: string[] = await fetch(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
     { next: { revalidate: 3600 } },
-  ).then((res) => res.json());
+  );
 
-  const product = response.find(
+  const result: string[] = await response.json();
+
+  const product = result.find(
     (data) => data[DataResponse.Slug] === slug,
   ) as string;
   const previousImages = (await parent).openGraph?.images || [];
@@ -47,11 +49,10 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const products: string[] = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
-    { next: { revalidate: 3600 } },
-  ).then((res) => res.json());
-
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`, {
+    next: { revalidate: 3600 },
+  });
+  const products: string[] = await data.json();
   return products.map((product) => ({
     slug: product[DataResponse.Slug],
   }));
@@ -63,7 +64,7 @@ export default async function Product({
   params: { slug: string };
 }) {
   const data = await staticFetching();
-
+  
   const productDetail = data.find(
     (item) => item[DataResponse.Slug] === params.slug,
   ) as string;
