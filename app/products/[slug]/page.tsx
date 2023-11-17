@@ -18,35 +18,35 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  const { slug } = params;
+// export async function generateMetadata(
+//   { params }: Props,
+//   parent: ResolvingMetadata,
+// ): Promise<Metadata> {
+//   const { slug } = params;
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
-    { next: { revalidate: 3600 } },
-  );
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`,
+//     { next: { revalidate: 3600 } },
+//   );
 
-  const result: string[] = await response?.json();
+//   const result: string[] = await response?.json();
 
-  const product = (result || []).find(
-    (data) => data[DataResponse.Slug] === slug,
-  ) as string;
-  const previousImages = (await parent).openGraph?.images || [];
+//   const product = (result || []).find(
+//     (data) => data[DataResponse.Slug] === slug,
+//   ) as string;
+//   const previousImages = (await parent).openGraph?.images || [];
 
-  return {
-    title: product[DataResponse.Title],
-    openGraph: {
-      images: [
-        `https://lh3.googleusercontent.com/d/${product[DataResponse.Image]}`,
-        ...previousImages,
-      ],
-      title: product[DataResponse.Title],
-    },
-  };
-}
+//   return {
+//     title: product[DataResponse.Title],
+//     openGraph: {
+//       images: [
+//         `https://lh3.googleusercontent.com/d/${product[DataResponse.Image]}`,
+//         ...previousImages,
+//       ],
+//       title: product[DataResponse.Title],
+//     },
+//   };
+// }
 
 export async function generateStaticParams() {
   const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/sheet`, {
