@@ -49,7 +49,7 @@ const HomePage = async () => {
             item[DataResponse.Category] === TypeProductEnum.JacketSports,
         )}
         title={TypeProductEnum.JacketSports}
-        idSection="Áo khoác thể thao"
+        idSection="ao-khoac-the-thao"
       />
 
       <DataGrid
