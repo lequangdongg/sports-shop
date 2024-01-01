@@ -5,6 +5,7 @@ export enum TypeProductEnum {
   SportShorts = 'Quần thể thao',
   ClothesSports = 'Áo thể thao',
   SportsWear = 'Đồ bộ thể thao',
+  JacketSports = 'Áo khoác thể thao',
 }
 
 export const sizeProduct = [
@@ -27,6 +28,10 @@ export const typeProduct = [
   {
     value: TypeProductEnum.SportsWear,
     label: TypeProductEnum.SportsWear,
+  },
+  {
+    value: TypeProductEnum.JacketSports,
+    label: TypeProductEnum.JacketSports,
   },
   {
     value: TypeProductEnum.SportClothes,

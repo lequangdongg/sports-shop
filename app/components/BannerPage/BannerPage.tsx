@@ -15,6 +15,7 @@ const navigation = [
     name: 'Thiết kế quần áo thi đấu theo yêu cầu',
     href: '#thiet-ke-quan-ao-thi-dau-theo-yeu-cau',
   },
+  { name: 'Áo khoác thể thao', href: '#ao-khoac-the-thao' },
 ];
 
 export default function BannerPage() {

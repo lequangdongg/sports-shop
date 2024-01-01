@@ -22,8 +22,7 @@ const HomePage = async () => {
       />
       <DataGrid
         products={data.filter(
-          (item) =>
-            item[DataResponse.Category] === TypeProductEnum.SportShorts,
+          (item) => item[DataResponse.Category] === TypeProductEnum.SportShorts,
         )}
         title={TypeProductEnum.SportShorts}
         idSection="quan-the-thao"
@@ -38,11 +37,19 @@ const HomePage = async () => {
       />
       <DataGrid
         products={data.filter(
-          (item) =>
-            item[DataResponse.Category] === TypeProductEnum.SportsWear,
+          (item) => item[DataResponse.Category] === TypeProductEnum.SportsWear,
         )}
         title={TypeProductEnum.SportsWear}
         idSection="do-bo-the-thao"
+      />
+
+      <DataGrid
+        products={data.filter(
+          (item) =>
+            item[DataResponse.Category] === TypeProductEnum.JacketSports,
+        )}
+        title={TypeProductEnum.JacketSports}
+        idSection="Áo khoác thể thao"
       />
 
       <DataGrid
