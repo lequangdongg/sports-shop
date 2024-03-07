@@ -1,13 +1,15 @@
 import { google } from 'googleapis';
 
-const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_CLIENT_KEY,
-  process.env.GOOGLE_SECRET_KEY,
-  `https://www.googleapis.com/auth/drive`,
-);
-
-oauth2Client.setCredentials({
-  refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+const oauth2Client = new google.auth.GoogleAuth({
+  credentials: {
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  },
+  scopes: [
+    `https://www.googleapis.com/auth/drive`,
+    `https://www.googleapis.com/auth/spreadsheets`,
+  ],
 });
 
 google.options({ auth: oauth2Client });
