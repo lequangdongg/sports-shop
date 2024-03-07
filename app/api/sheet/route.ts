@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   ];
   const payload = items.map((item) => requestBody[item]);
 
-  google.sheets({ version: 'v4' }).spreadsheets.values.append({
+  await google.sheets({ version: 'v4' }).spreadsheets.values.append({
     spreadsheetId: process.env.SHEET_FILE_ID,
     range: process.env.SHEET_NAME,
     valueInputOption: 'RAW',
@@ -51,7 +51,7 @@ export async function DELETE(request: NextRequest) {
   //   },
   // });
 
-  google.sheets({ version: 'v4' }).spreadsheets.batchUpdate({
+  await google.sheets({ version: 'v4' }).spreadsheets.batchUpdate({
     spreadsheetId: process.env.SHEET_FILE_ID,
     requestBody: {
       requests: [
