@@ -13,7 +13,7 @@ dependencies:
     version: 8.3.1(encoding@0.1.13)
   '@headlessui/react':
     specifier: ^1.7.17
-    version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
+    version: 1.7.19(react-dom@18.2.0)(react@18.2.0)
   '@heroicons/react':
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
@@ -55,7 +55,7 @@ dependencies:
     version: 7.45.4(react@18.2.0)
   react-hot-toast:
     specifier: ^2.4.1
-    version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
+    version: 2.4.1(csstype@3.2.3)(react-dom@18.2.0)(react@18.2.0)
   react-select:
     specifier: ^5.7.4
     version: 5.7.4(@types/react@18.2.22)(react-dom@18.2.0)(react@18.2.0)
@@ -388,13 +388,14 @@ packages:
       - supports-color
     dev: false
 
-  /@headlessui/react@1.7.17(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-4am+tzvkqDSSgiwrsEpGWqgGo9dz8qU5M3znCkC4PgkpY4HcCZzEDEvozltGGGHIKl9jbXbZPSH5TWn4sWJdow==}
+  /@headlessui/react@1.7.19(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Ll+8q3OlMJfJbAKM/+/Y2q6PPYbryqNTXDbryx7SXLIDamkF6iQFbriYHga0dY44PvDhvvBWCx1Xj4U5+G4hOw==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
       react-dom: ^16 || ^17 || ^18
     dependencies:
+      '@tanstack/react-virtual': 3.14.10(react-dom@18.2.0)(react@18.2.0)
       client-only: 0.0.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -618,6 +619,21 @@ packages:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.3.3
     dev: true
+
+  /@tanstack/react-virtual@3.14.10(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-SRyoUbdFMRHuYXMijV5H4ZarQWpXkj3iANq8OFre+pybeVap8ZJjZ3Nz9bVjx4d8PfobVUQUdKyyyHYk3E+djw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    dependencies:
+      '@tanstack/virtual-core': 3.17.8
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@tanstack/virtual-core@3.17.8:
+    resolution: {integrity: sha512-BfEvehNpOT75r5Ksc5xW6NZuXujTfb7nlSEyVu4XHG3gdxNg1KqXruWbDewXOUaUYIo4oRbSfkjIajz4MAT8tA==}
+    dev: false
 
   /@types/body-parser@1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
@@ -1271,6 +1287,10 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+
+  /csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+    dev: false
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
@@ -2029,12 +2049,12 @@ packages:
       slash: 3.0.0
     dev: true
 
-  /goober@2.1.13(csstype@3.1.2):
+  /goober@2.1.13(csstype@3.2.3):
     resolution: {integrity: sha512-jFj3BQeleOoy7t93E9rZ2de+ScC4lQICLwiAQmKMg9F6roKGaLSHoCDYKkWlSafg138jejvq/mTdvmnwDQgqoQ==}
     peerDependencies:
       csstype: ^3.0.10
     dependencies:
-      csstype: 3.1.2
+      csstype: 3.2.3
     dev: false
 
   /google-auth-library@9.0.0(encoding@0.1.13):
@@ -2967,14 +2987,14 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-hot-toast@2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0):
+  /react-hot-toast@2.4.1(csstype@3.2.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-j8z+cQbWIM5LY37pR6uZR6D4LfseplqnuAO4co4u8917hBUvXlEqyP1ZzqVLcqoyUesZZv/ImreoCeHVDpE5pQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
       react-dom: '>=16'
     dependencies:
-      goober: 2.1.13(csstype@3.1.2)
+      goober: 2.1.13(csstype@3.2.3)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
